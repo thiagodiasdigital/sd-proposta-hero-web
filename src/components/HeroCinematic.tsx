@@ -29,9 +29,29 @@ function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-function easeInOut(t: number): number {
-  const u = clamp01(t);
-  return u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+function cubicBezierYfromX(x: number, p1x: number, p1y: number, p2x: number, p2y: number): number {
+  const cx = 3 * p1x;
+  const bx = 3 * (p2x - p1x) - cx;
+  const ax = 1 - cx - bx;
+
+  const cy = 3 * p1y;
+  const by = 3 * (p2y - p1y) - cy;
+  const ay = 1 - cy - by;
+
+  const sampleX = (t: number) => ((ax * t + bx) * t + cx) * t;
+  const sampleY = (t: number) => ((ay * t + by) * t + cy) * t;
+  const sampleDX = (t: number) => (3 * ax * t + 2 * bx) * t + cx;
+
+  let t = x;
+  for (let i = 0; i < 6; i += 1) {
+    const xEstimate = sampleX(t) - x;
+    const d = sampleDX(t);
+    if (Math.abs(xEstimate) < 1e-6 || Math.abs(d) < 1e-6) break;
+    t -= xEstimate / d;
+    t = clamp01(t);
+  }
+
+  return clamp01(sampleY(t));
 }
 
 function mapKeyframes(t: number): HeroState {
@@ -92,7 +112,7 @@ export function HeroCinematic() {
     };
   }, []);
 
-  const eased = easeInOut(progress);
+  const eased = cubicBezierYfromX(progress, 0.22, 0.61, 0.36, 1);
   const state = mapKeyframes(eased);
 
   return (
