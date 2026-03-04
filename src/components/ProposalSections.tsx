@@ -281,6 +281,44 @@ export function ProposalSections() {
         </p>
       </section>
 
+      <section id="dobra-ecossistema" className={styles.rodaSection}>
+        <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.eco_h2 ? styles.rodaVisible : ""}`} data-reveal-id="eco_h2">
+          O erro do mercado e procurar o <strong>&quot;Botao Magico&quot;.</strong> Ele nao existe.
+        </h2>
+        <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.eco_p1 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p1">
+          O mercado de marketing industrial convencionou vender solucoes isoladas. Eles tentam convencer voce de que a solucao para a sua empresa e &quot;apenas&quot; produzir mais videos no Instagram, ou &quot;apenas&quot; comprar anuncios, ou &quot;apenas&quot; ter um site novo.
+        </p>
+        <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.eco_p2 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p2">
+          A verdade operacional e fria: nao existe uma unica ferramenta capaz de sustentar uma operacao corporativa.
+        </p>
+
+        <div
+          className={`${styles.rodaEcoWrap} ${visibleIds.eco_diagram ? styles.rodaEcoWrapActive : ""} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.eco_diagram ? styles.rodaVisible : ""}`}
+          data-reveal-id="eco_diagram"
+        >
+          <div className={styles.rodaIslandGrid}>
+            <div className={styles.rodaIsland}>Redes Sociais (Instagram/LinkedIn)</div>
+            <div className={styles.rodaIsland}>Google (Busca e Mapas)</div>
+            <div className={styles.rodaIsland}>Sites e Diretorios</div>
+            <div className={styles.rodaIsland}>Trafego Pago</div>
+          </div>
+
+          <div className={styles.rodaCenterGear}>Ecossistema Sincronizado</div>
+
+          <span className={`${styles.rodaConnector} ${styles.rodaConnector1} ${visibleIds.eco_diagram ? styles.rodaEcoActive : ""}`} />
+          <span className={`${styles.rodaConnector} ${styles.rodaConnector2} ${visibleIds.eco_diagram ? styles.rodaEcoActive : ""}`} />
+          <span className={`${styles.rodaConnector} ${styles.rodaConnector3} ${visibleIds.eco_diagram ? styles.rodaEcoActive : ""}`} />
+          <span className={`${styles.rodaConnector} ${styles.rodaConnector4} ${visibleIds.eco_diagram ? styles.rodaEcoActive : ""}`} />
+        </div>
+
+        <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.eco_p3 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p3">
+          Redes sociais servem para prova de capacidade tecnica (como os videos da SD descarregando camara fria). O Google (SEO/GBP/AIO) serve para interceptar a demanda ativa de quem ja tem o problema. Trafego pago serve para acelerar regioes especificas. O site serve para blindar o preco e gerar conversao rastreavel.
+        </p>
+        <p className={`${styles.rodaHighlight} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.eco_p4 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p4">
+          O jogo nao se ganha escolhendo entre trafego organico ou pago, entre Instagram ou Google. O jogo se ganha usando a ferramenta certa, no momento exato do ciclo de decisao do cliente corporativo.
+        </p>
+      </section>
+
       <section id="dobra-metodo" className={styles.rodaSection}>
         <span className={`${styles.rodaPill} ${styles.rodaReveal} ${visibleIds.metodo_tag ? styles.rodaVisible : ""}`} data-reveal-id="metodo_tag">
           METODO R.O.D.A.
