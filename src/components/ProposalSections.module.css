@@ -138,6 +138,98 @@
   background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
 }
 
+.rodaDemandGrid {
+  width: min(1080px, 100%);
+  margin: 14px auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.rodaDemandLeft,
+.rodaDemandRight {
+  border-radius: 12px;
+  padding: 14px;
+  text-align: left;
+}
+
+.rodaDemandLeft {
+  background: #101010;
+  border: 1px solid #222;
+}
+
+.rodaDemandLeft h3,
+.rodaDemandRight h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.rodaDemandCounter {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  margin-bottom: 10px;
+  color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+.rodaDemandCounter span {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.rodaDemandLeft p,
+.rodaDemandRight p {
+  margin: 0 0 10px;
+  color: var(--cor-subtexto);
+  line-height: 1.7;
+}
+
+.rodaDemandList {
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+.rodaDemandList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cor-texto);
+}
+
+.rodaCheck {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6bcf66 0%, #f5a623 100%);
+  flex: 0 0 14px;
+}
+
+.rodaDemandRight {
+  background: #111111;
+  border: 1px solid #331111;
+}
+
+.rodaIdleIcon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 8px;
+  color: #c98f3a;
+}
+
+.rodaIdleIcon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.rodaDemandFinal {
+  max-width: 600px;
+}
+
 .rodaEcoWrap {
   width: min(980px, 100%);
   margin: 16px auto;
@@ -555,6 +647,10 @@
   }
 
   .rodaGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rodaDemandGrid {
     grid-template-columns: 1fr 1fr;
   }
 

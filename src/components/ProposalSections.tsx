@@ -38,6 +38,7 @@ export function ProposalSections() {
   const [mapVisible, setMapVisible] = useState(false);
   const [sdPointVisible, setSdPointVisible] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [demandCounter, setDemandCounter] = useState(0);
 
   const sessionStartRef = useRef<number>(0);
   const seenFoldsRef = useRef<Set<string>>(new Set());
@@ -45,6 +46,7 @@ export function ProposalSections() {
   const currentFoldRef = useRef<string | null>(null);
   const currentFoldStartRef = useRef<number>(0);
   const counterStartedRef = useRef(false);
+  const demandCounterStartedRef = useRef(false);
 
   useEffect(() => {
     sessionStartRef.current = Date.now();
@@ -115,6 +117,19 @@ export function ProposalSections() {
         if (foldId === "dobra-mapa") {
           setMapVisible(true);
           window.setTimeout(() => setSdPointVisible(true), 600);
+        }
+
+        if (foldId === "dobra-demanda-real" && !demandCounterStartedRef.current) {
+          demandCounterStartedRef.current = true;
+          const start = performance.now();
+          const duration = 1400;
+          const animate = (ts: number) => {
+            const t = Math.min(1, (ts - start) / duration);
+            const eased = 1 - (1 - t) ** 3;
+            setDemandCounter(2.5 * eased);
+            if (t < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
         }
 
         if (foldId === "dobra-metodo" && !counterStartedRef.current) {
@@ -222,6 +237,63 @@ export function ProposalSections() {
         </p>
         <p className={`${styles.rodaText} ${styles.rodaBold} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.decisao_p5 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p5">
           A SD Guindastes tem a frota e a operação. Falta a engenharia de dados que traduz essa capacidade para os algoritmos modernos.
+        </p>
+      </section>
+
+      <section id="dobra-demanda-real" className={styles.rodaSection}>
+        <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.dem_h2 ? styles.rodaVisible : ""}`} data-reveal-id="dem_h2">
+          O mercado industrial do Litoral opera em alta rotação. <strong>Seu maquinário também deveria.</strong>
+        </h2>
+
+        <div className={styles.rodaDemandGrid}>
+          <article className={`${styles.rodaDemandLeft} ${styles.rodaReveal} ${visibleIds.dem_left ? styles.rodaVisible : ""}`} data-reveal-id="dem_left">
+            <h3>A Demanda Estrutural Oculta</h3>
+            <div className={styles.rodaDemandCounter}>
+              <span>{demandCounter.toFixed(1).replace(".", ",")}</span> milhões
+            </div>
+            <p>
+              O complexo portuário de Itajaí e a explosão de construção civil em Balneário Camboriú, Itapema e Camboriú geram uma demanda ininterrupta por engenharia de içamento.
+            </p>
+
+            <ul className={styles.rodaDemandList}>
+              <li><i className={styles.rodaCheck} />Balneário Camboriú</li>
+              <li><i className={styles.rodaCheck} />Itapema</li>
+              <li><i className={styles.rodaCheck} />Camboriú</li>
+              <li><i className={styles.rodaCheck} />Porto de Itajaí</li>
+            </ul>
+
+            <ul className={styles.rodaDemandList}>
+              <li><i className={styles.rodaCheck} />Transporte de contêineres e remoção industrial;</li>
+              <li><i className={styles.rodaCheck} />Montagem de galpões logísticos e estruturas pré-moldadas;</li>
+              <li><i className={styles.rodaCheck} />Içamento de peças náuticas e câmaras frias.</li>
+            </ul>
+
+            <p className={styles.rodaHighlight}>
+              Todos os dias, dezenas de tomadores de decisão dessas cidades procuram no Google por empresas preparadas para serviços de alto risco.
+            </p>
+          </article>
+
+          <article className={`${styles.rodaDemandRight} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.dem_right ? styles.rodaVisible : ""}`} data-reveal-id="dem_right">
+            <div className={styles.rodaIdleIcon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path d="M3 6h12v2H3zM15 7h4v2h-2v6h-2zM8 8h2v8h-2zM10 16h8v2h-8zM18 18a2 2 0 110 4 2 2 0 010-4z" />
+              </svg>
+            </div>
+            <h3>O Custo Silencioso do Pátio</h3>
+            <p>
+              Sua empresa investiu capital pesado em infraestrutura. Vocês possuem caminhões munck robustos, cestos aéreos de precisão e garfos paleteiros.
+            </p>
+            <p>
+              Mas o ativo mais caro de uma operação de transporte não é a manutenção do caminhão. <strong>É a hora/máquina ociosa.</strong>
+            </p>
+            <p>
+              Quando o seu posicionamento digital foca apenas no bairro ou em buscas orgânicas de baixo volume, o seu cesto aéreo fica no pátio enquanto a obra vizinha contrata um equipamento igual ao seu, de uma empresa que estava melhor posicionada no Google.
+            </p>
+          </article>
+        </div>
+
+        <p className={`${styles.rodaText} ${styles.rodaDemandFinal} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.dem_final ? styles.rodaVisible : ""}`} data-reveal-id="dem_final">
+          Não se trata de apontar falhas na sua operação. A SD Guindastes tem a frota que muitas dessas construtoras precisam para ontem. Trata-se de reconhecer que o capital está fluindo, mas o algoritmo de busca não está conectando o seu pátio ao problema do cliente.
         </p>
       </section>
 
