@@ -187,15 +187,21 @@ export function ProposalSections() {
         <div className={`${styles.rodaGrid} ${styles.rodaReveal} ${visibleIds.decisao_grid ? styles.rodaVisible : ""}`} data-reveal-id="decisao_grid">
           <article className={styles.rodaPanel}>
             <div className={styles.rodaSearchBar}>{typed}<span className={styles.rodaCaret}>|</span></div>
-            <div className={styles.rodaResult}>#1 Empresa A</div>
-            <div className={styles.rodaResult}>#2 Empresa B</div>
-            <div className={styles.rodaResult}>#3 Empresa C</div>
+            <div className={styles.rodaResult}>#1 ALC Guindastes e Transportes</div>
+            <div className={styles.rodaResult}>#2 Cilesio</div>
+            <div className={styles.rodaResult}>#3 munck em itajai (Lima Munck)</div>
             <div className={styles.rodaMissing}>Sua empresa deveria estar aqui.</div>
           </article>
 
           <article className={styles.rodaPanel}>
             <div className={styles.rodaChatPrompt}>Qual empresa de icamento industrial eu contrato em Itajai?</div>
-            <div className={styles.rodaChatAnswer}>1) Empresa A<br />2) Empresa B<br />3) Empresa C</div>
+            <div className={styles.rodaChatAnswer}>
+              1) ALC Guindastes e Transportes
+              <br />
+              2) Cilesio
+              <br />
+              3) munck em itajai (Lima Munck)
+            </div>
           </article>
         </div>
 
