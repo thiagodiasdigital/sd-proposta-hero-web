@@ -1,32 +1,27 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-type HeroState = {
-  scale: number;
-  x: number;
-  y: number;
-  blur: number;
-  vignette: number;
-};
+const FULL_FRAME_COUNT = 145;
+const MOBILE_FRAME_COUNT = 73;
+const MOBILE_MEDIA_QUERY = "(max-width: 900px), (pointer: coarse)";
 
-const KEYFRAMES: Array<HeroState & { t: number }> = [
-  { t: 0.0, scale: 1.0, x: 0.0, y: 0.0, blur: 0.0, vignette: 0.08 },
-  { t: 0.18, scale: 1.08, x: 0.3, y: -0.4, blur: 0.0, vignette: 0.1 },
-  { t: 0.36, scale: 1.22, x: 0.8, y: -0.9, blur: 0.4, vignette: 0.12 },
-  { t: 0.52, scale: 1.45, x: 1.4, y: -1.5, blur: 1.2, vignette: 0.15 },
-  { t: 0.68, scale: 1.76, x: 2.1, y: -2.0, blur: 2.2, vignette: 0.18 },
-  { t: 0.82, scale: 2.08, x: 2.8, y: -2.6, blur: 3.4, vignette: 0.22 },
-  { t: 1.0, scale: 2.38, x: 3.4, y: -3.0, blur: 4.8, vignette: 0.26 },
-];
+function padFrameNumber(frameNumber: number): string {
+  return String(frameNumber).padStart(3, "0");
+}
+
+function buildFrameNumbers(count: number): number[] {
+  const frameNumbers: number[] = [];
+
+  for (let frame = 1; frame <= count; frame += 1) {
+    frameNumbers.push(frame);
+  }
+
+  return frameNumbers;
+}
 
 function clamp01(value: number): number {
   return Math.min(1, Math.max(0, value));
-}
-
-function lerp(a: number, b: number, t: number): number {
-  return a + (b - a) * t;
 }
 
 function cubicBezierYfromX(x: number, p1x: number, p1y: number, p2x: number, p2y: number): number {
@@ -54,28 +49,171 @@ function cubicBezierYfromX(x: number, p1x: number, p1y: number, p2x: number, p2y
   return clamp01(sampleY(t));
 }
 
-function mapKeyframes(t: number): HeroState {
-  let i = 0;
-  while (i < KEYFRAMES.length - 1 && t > KEYFRAMES[i + 1].t) i += 1;
-
-  const a = KEYFRAMES[i];
-  const b = KEYFRAMES[Math.min(i + 1, KEYFRAMES.length - 1)];
-  const span = b.t - a.t;
-  const local = span === 0 ? 0 : (t - a.t) / span;
-
-  return {
-    scale: lerp(a.scale, b.scale, local),
-    x: lerp(a.x, b.x, local),
-    y: lerp(a.y, b.y, local),
-    blur: lerp(a.blur, b.blur, local),
-    vignette: lerp(a.vignette, b.vignette, local),
-  };
-}
-
 export function HeroCinematic() {
   const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const bgCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<Array<HTMLImageElement | null>>([]);
   const rafRef = useRef<number | null>(null);
+
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+  });
   const [progress, setProgress] = useState(0);
+  const [loadedCount, setLoadedCount] = useState(0);
+
+  const frameNumbers = useMemo(
+    () => buildFrameNumbers(isMobile ? MOBILE_FRAME_COUNT : FULL_FRAME_COUNT),
+    [isMobile],
+  );
+
+  const frameSourceCandidates = useMemo(() => {
+    if (isMobile) {
+      return frameNumbers.map((frameNumber) => {
+        const base = `/frames/hero-mobile/frame_${padFrameNumber(frameNumber)}`;
+        return [`${base}.avif`, `${base}.webp`];
+      });
+    }
+
+    return frameNumbers.map((frameNumber) => [`/frames/hero/frame_${padFrameNumber(frameNumber)}.webp`]);
+  }, [isMobile, frameNumbers]);
+
+  const preloadPriorityCount = isMobile ? 10 : 18;
+  const preloadWorkers = isMobile ? 2 : 4;
+  const maxRenderDpr = isMobile ? 1.25 : 2;
+  const mainDrawMode: "cover" | "contain" = isMobile ? "contain" : "cover";
+
+  const findBestLoadedFrame = useCallback((targetIndex: number): HTMLImageElement | null => {
+    const images = imagesRef.current;
+    if (images[targetIndex]) return images[targetIndex];
+
+    for (let offset = 1; offset < images.length; offset += 1) {
+      const prev = targetIndex - offset;
+      if (prev >= 0 && images[prev]) return images[prev];
+
+      const next = targetIndex + offset;
+      if (next < images.length && images[next]) return images[next];
+    }
+
+    return null;
+  }, []);
+
+  const drawImageToCanvas = useCallback(
+    (canvas: HTMLCanvasElement, image: HTMLImageElement, mode: "cover" | "contain", dprCap: number): void => {
+      const context = canvas.getContext("2d");
+      if (!context) return;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, dprCap);
+      const cssWidth = canvas.clientWidth;
+      const cssHeight = canvas.clientHeight;
+      const targetWidth = Math.max(1, Math.round(cssWidth * dpr));
+      const targetHeight = Math.max(1, Math.round(cssHeight * dpr));
+
+      if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+      }
+
+      context.clearRect(0, 0, targetWidth, targetHeight);
+
+      const scale =
+        mode === "cover"
+          ? Math.max(targetWidth / image.naturalWidth, targetHeight / image.naturalHeight)
+          : Math.min(targetWidth / image.naturalWidth, targetHeight / image.naturalHeight);
+
+      const width = image.naturalWidth * scale;
+      const height = image.naturalHeight * scale;
+      const x = (targetWidth - width) / 2;
+      const y = (targetHeight - height) / 2;
+
+      context.drawImage(image, x, y, width, height);
+    },
+    [],
+  );
+
+  const drawFrame = useCallback(
+    (frameIndex: number): void => {
+      const image = findBestLoadedFrame(frameIndex);
+      const canvas = canvasRef.current;
+      const bgCanvas = bgCanvasRef.current;
+      if (!image || !canvas || !bgCanvas) return;
+
+      drawImageToCanvas(bgCanvas, image, "cover", maxRenderDpr);
+      drawImageToCanvas(canvas, image, mainDrawMode, maxRenderDpr);
+    },
+    [drawImageToCanvas, findBestLoadedFrame, mainDrawMode, maxRenderDpr],
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+
+    const updateDeviceClass = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    updateDeviceClass();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateDeviceClass);
+      return () => mediaQuery.removeEventListener("change", updateDeviceClass);
+    }
+
+    mediaQuery.addListener(updateDeviceClass);
+    return () => mediaQuery.removeListener(updateDeviceClass);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    let nextToQueue = Math.min(preloadPriorityCount, frameSourceCandidates.length);
+
+    imagesRef.current = Array(frameSourceCandidates.length).fill(null);
+
+    const loadFrame = (index: number, onDone?: () => void) => {
+      const sources = frameSourceCandidates[index];
+      let sourcePointer = 0;
+      const image = new Image();
+      image.decoding = "async";
+
+      image.onload = () => {
+        if (cancelled) return;
+        imagesRef.current[index] = image;
+        setLoadedCount((count) => count + 1);
+        onDone?.();
+      };
+
+      image.onerror = () => {
+        if (cancelled) return;
+        sourcePointer += 1;
+        if (sourcePointer < sources.length) {
+          image.src = sources[sourcePointer];
+          return;
+        }
+        onDone?.();
+      };
+
+      image.src = sources[sourcePointer];
+    };
+
+    for (let index = 0; index < Math.min(preloadPriorityCount, frameSourceCandidates.length); index += 1) {
+      loadFrame(index);
+    }
+
+    const startWorker = () => {
+      const index = nextToQueue;
+      nextToQueue += 1;
+      if (index >= frameSourceCandidates.length) return;
+      loadFrame(index, startWorker);
+    };
+
+    for (let worker = 0; worker < preloadWorkers; worker += 1) {
+      startWorker();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [frameSourceCandidates, preloadPriorityCount, preloadWorkers]);
 
   useEffect(() => {
     function updateProgress() {
@@ -89,8 +227,7 @@ export function HeroCinematic() {
         return;
       }
 
-      const next = clamp01(-rect.top / scrollable);
-      setProgress(next);
+      setProgress(clamp01(-rect.top / scrollable));
     }
 
     function onScrollOrResize() {
@@ -112,71 +249,39 @@ export function HeroCinematic() {
     };
   }, []);
 
-  const eased = cubicBezierYfromX(progress, 0.22, 0.61, 0.36, 1);
-  const state = mapKeyframes(eased);
+  useEffect(() => {
+    if (loadedCount === 0 || frameSourceCandidates.length === 0) return;
+    const eased = cubicBezierYfromX(progress, 0.22, 0.61, 0.36, 1);
+    const frameIndex = Math.round(eased * (frameSourceCandidates.length - 1));
+    drawFrame(frameIndex);
+  }, [progress, loadedCount, frameSourceCandidates.length, drawFrame]);
+
+  useEffect(() => {
+    function onResize() {
+      if (frameSourceCandidates.length === 0) return;
+      const eased = cubicBezierYfromX(progress, 0.22, 0.61, 0.36, 1);
+      const frameIndex = Math.round(eased * (frameSourceCandidates.length - 1));
+      drawFrame(frameIndex);
+    }
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [progress, frameSourceCandidates.length, drawFrame]);
 
   return (
     <section ref={sectionRef} className="relative min-h-[260vh] bg-[#0d1117]">
-      <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: "scale(1.02)",
-            filter: `blur(${state.blur}px) brightness(0.86)`,
-          }}
-        >
-          <Image
-            src="/images/guindaste-ultra.png"
-            alt="Caminhao guindaste SD transportando container"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translate(${state.x * 0.25}%, ${state.y * 0.25}%) scale(${1 + (state.scale - 1) * 0.25})`,
-            transformOrigin: "50% 44%",
-            filter: "brightness(0.95)",
-          }}
-        >
-          <Image
-            src="/images/guindaste-ultra.png"
-            alt="Container SD em destaque"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          className="absolute inset-0"
-          style={{
-            transform: `translate(${state.x}%, ${state.y}%) scale(${state.scale})`,
-            transformOrigin: "50% 44%",
-            willChange: "transform",
-          }}
-        >
-          <Image
-            src="/images/guindaste-ultra.png"
-            alt="Logo SD em close"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background: `radial-gradient(circle at 50% 45%, rgba(0,0,0,0) 44%, rgba(0,0,0,${state.vignette}) 100%)`,
-          }}
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-black">
+        <canvas
+          ref={bgCanvasRef}
+          className="absolute inset-0 h-full w-full blur-[28px] brightness-[0.45] scale-110"
+          aria-hidden="true"
         />
+
+        <div className="absolute inset-0 flex items-center justify-center">
+          <canvas ref={canvasRef} className="h-full w-full" />
+        </div>
+
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(0,0,0,0)_48%,rgba(0,0,0,0.16)_100%)]" />
       </div>
     </section>
   );
