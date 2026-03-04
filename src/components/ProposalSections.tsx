@@ -3,7 +3,7 @@
 import { type MouseEvent, useEffect, useRef, useState } from "react";
 import styles from "./ProposalSections.module.css";
 
-const SEARCH_QUERY = "aluguel de munck Itajai";
+const SEARCH_QUERY = "aluguel de munck Itajaí";
 const SESSION_KEY = "roda_session";
 const CTA_BASE = "https://wa.me/5532998494311";
 
@@ -175,7 +175,7 @@ export function ProposalSections() {
     safeWriteEvents(events);
 
     const payload = JSON.stringify({ sessao_segundos: sessionSeconds, eventos: events });
-    const text = `Ola, quero implementar o Metodo R.O.D.A. na SD Guindastes. Sessao: ${sessionSeconds}s. Telemetria: ${payload}`;
+    const text = `Olá, quero implementar o Método R.O.D.A. na SD Guindastes. Sessão: ${sessionSeconds}s. Telemetria: ${payload}`;
     const targetUrl = `${CTA_BASE}?text=${encodeURIComponent(text)}`;
 
     window.open(targetUrl, "_blank", "noopener,noreferrer");
@@ -194,7 +194,7 @@ export function ProposalSections() {
           </article>
 
           <article className={styles.rodaPanel}>
-            <div className={styles.rodaChatPrompt}>Qual empresa de icamento industrial eu contrato em Itajai?</div>
+            <div className={styles.rodaChatPrompt}>Qual empresa de içamento industrial eu contrato em Itajaí?</div>
             <div className={styles.rodaChatAnswer}>
               1) ALC Guindastes e Transportes
               <br />
@@ -206,34 +206,34 @@ export function ProposalSections() {
         </div>
 
         <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.decisao_h2 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_h2">
-          A decisao de contratar comeca <strong>antes</strong> do seu telefone tocar.
+          A decisão de contratar começa <strong>antes</strong> do seu telefone tocar.
         </h2>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.decisao_p1 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p1">
-          Quando um engenheiro de obras, gerente de logistica portuaria ou responsavel por montagem industrial em Itajai precisa de icamento com urgencia, ele nao abre o Instagram.
+          Quando um engenheiro de obras, gerente de logística portuária ou responsável por montagem industrial em Itajaí precisa de içamento com urgência, ele não abre o Instagram.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.decisao_p2 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p2">
-          Ele busca no Google. Ou faz a pergunta direto para uma Inteligencia Artificial.
+          Ele busca no Google. Ou faz a pergunta direto para uma Inteligência Artificial.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.decisao_p3 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p3">
-          Em menos de tres segundos, a decisao ja comeca. Quem aparece no topo do mapa e quem e recomendado pela IA recebe o contato. Quem aparece depois disputa o que sobrou.
+          Em menos de três segundos, a decisão já começa. Quem aparece no topo do mapa e quem é recomendado pela IA recebe o contato. Quem aparece depois disputa o que sobrou.
         </p>
         <p className={`${styles.rodaHighlight} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.decisao_p4 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p4">
-          As empresas que hoje ocupam esses resultados nao chegaram la por ter o melhor equipamento. Chegaram porque trataram o posicionamento digital como infraestrutura operacional - do mesmo jeito que tratam a manutencao da frota.
+          As empresas que hoje ocupam esses resultados não chegaram lá por ter o melhor equipamento. Chegaram porque trataram o posicionamento digital como infraestrutura operacional - do mesmo jeito que tratam a manutenção da frota.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaBold} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.decisao_p5 ? styles.rodaVisible : ""}`} data-reveal-id="decisao_p5">
-          A SD Guindastes tem a frota e a operacao. Falta a engenharia de dados que traduz essa capacidade para os algoritmos modernos.
+          A SD Guindastes tem a frota e a operação. Falta a engenharia de dados que traduz essa capacidade para os algoritmos modernos.
         </p>
       </section>
 
       <section id="dobra-mapa" className={`${styles.rodaSection} ${styles.rodaMapBg}`}>
         <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.mapa_h2 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_h2">
-          O espaco existe. A demanda ja esta la. <strong>Falta o posicionamento.</strong>
+          O espaço existe. A demanda já está lá. <strong>Falta o posicionamento.</strong>
         </h2>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.mapa_p1 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_p1">
-          O mercado de icamento industrial, montagem de galpoes e locacao de munck em Itajai tem demanda real, crescente e subestimada digitalmente.
+          O mercado de içamento industrial, montagem de galpões e locação de munck em Itajaí tem demanda real, crescente e subestimada digitalmente.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.mapa_p2 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_p2">
-          Empresas que hoje estao a frente capturaram as primeiras posicoes por ausencia de concorrencia tecnica. Nao por superioridade de equipamento. Nao por preco menor. Nao por mais anos de mercado.
+          Empresas que hoje estão à frente capturaram as primeiras posições por ausência de concorrência técnica. Não por superioridade de equipamento. Não por preço menor. Não por mais anos de mercado.
         </p>
 
         <div className={`${styles.rodaSvgWrap} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.mapa_svg ? styles.rodaVisible : ""}`} data-reveal-id="mapa_svg">
@@ -271,25 +271,25 @@ export function ProposalSections() {
         </div>
 
         <p className={`${styles.rodaHighlight} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.mapa_p3 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_p3">
-          Ha uma lacuna no posicionamento delas: estao otimizadas para o Google de ontem. A janela que se abre agora e o SEO Local avancado cruzado com AIO - Artificial Intelligence Optimization.
+          Há uma lacuna no posicionamento delas: estão otimizadas para o Google de ontem. A janela que se abre agora é o SEO Local avançado cruzado com AIO - Artificial Intelligence Optimization.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.mapa_p4 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_p4">
-          Isso significa nao apenas aparecer no mapa quando alguem busca por perto. Significa ser a empresa que a Inteligencia Artificial do Google recomenda quando um decisor pergunta: <em>&quot;Qual a empresa mais confiavel para icamento critico no porto de Itajai?&quot;</em>
+          Isso significa não apenas aparecer no mapa quando alguém busca por perto. Significa ser a empresa que a Inteligência Artificial do Google recomenda quando um decisor pergunta: <em>&quot;Qual a empresa mais confiável para içamento crítico no porto de Itajaí?&quot;</em>
         </p>
         <p className={`${styles.rodaText} ${styles.rodaPrimaryStrong} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.mapa_p5 ? styles.rodaVisible : ""}`} data-reveal-id="mapa_p5">
-          A SD Guindastes tem o historico operacional para nao apenas alcancar quem esta a frente - mas se tornar a referencia que os outros precisam alcancar.
+          A SD Guindastes tem o histórico operacional para não apenas alcançar quem está à frente - mas se tornar a referência que os outros precisam alcançar.
         </p>
       </section>
 
       <section id="dobra-ecossistema" className={styles.rodaSection}>
         <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.eco_h2 ? styles.rodaVisible : ""}`} data-reveal-id="eco_h2">
-          O erro do mercado e procurar o <strong>&quot;Botao Magico&quot;.</strong> Ele nao existe.
+          O erro do mercado é procurar o <strong>&quot;Botão Mágico&quot;.</strong> Ele não existe.
         </h2>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.eco_p1 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p1">
-          O mercado de marketing industrial convencionou vender solucoes isoladas. Eles tentam convencer voce de que a solucao para a sua empresa e &quot;apenas&quot; produzir mais videos no Instagram, ou &quot;apenas&quot; comprar anuncios, ou &quot;apenas&quot; ter um site novo.
+          O mercado de marketing industrial convencionou vender soluções isoladas. Eles tentam convencer você de que a solução para a sua empresa é &quot;apenas&quot; produzir mais vídeos no Instagram, ou &quot;apenas&quot; comprar anúncios, ou &quot;apenas&quot; ter um site novo.
         </p>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.eco_p2 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p2">
-          A verdade operacional e fria: nao existe uma unica ferramenta capaz de sustentar uma operacao corporativa.
+          A verdade operacional é fria: não existe uma única ferramenta capaz de sustentar uma operação corporativa.
         </p>
 
         <div
@@ -312,10 +312,10 @@ export function ProposalSections() {
         </div>
 
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.eco_p3 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p3">
-          Redes sociais servem para prova de capacidade tecnica (como os videos da SD descarregando camara fria). O Google (SEO/GBP/AIO) serve para interceptar a demanda ativa de quem ja tem o problema. Trafego pago serve para acelerar regioes especificas. O site serve para blindar o preco e gerar conversao rastreavel.
+          Redes sociais servem para prova de capacidade técnica (como os vídeos da SD descarregando câmara fria). O Google (SEO/GBP/AIO) serve para interceptar a demanda ativa de quem já tem o problema. Tráfego pago serve para acelerar regiões específicas. O site serve para blindar o preço e gerar conversão rastreável.
         </p>
         <p className={`${styles.rodaHighlight} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.eco_p4 ? styles.rodaVisible : ""}`} data-reveal-id="eco_p4">
-          O jogo nao se ganha escolhendo entre trafego organico ou pago, entre Instagram ou Google. O jogo se ganha usando a ferramenta certa, no momento exato do ciclo de decisao do cliente corporativo.
+          O jogo não se ganha escolhendo entre tráfego orgânico ou pago, entre Instagram ou Google. O jogo se ganha usando a ferramenta certa, no momento exato do ciclo de decisão do cliente corporativo.
         </p>
       </section>
 
@@ -327,50 +327,50 @@ export function ProposalSections() {
           Tres alavancas simultaneas. <strong>Um efeito composto irreversivel.</strong>
         </h2>
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.metodo_p ? styles.rodaVisible : ""}`} data-reveal-id="metodo_p">
-          O Metodo R.O.D.A. nao e uma campanha. E uma arquitetura matematica de alavancagem de receita que opera sobre as unicas tres variaveis que movem o faturamento de qualquer empresa.
+          O Método R.O.D.A. não é uma campanha. É uma arquitetura matemática de alavancagem de receita que opera sobre as únicas três variáveis que movem o faturamento de qualquer empresa.
         </p>
 
         <div className={styles.rodaCards}>
           <article className={`${styles.rodaCard} ${styles.rodaReveal} ${visibleIds.card1 ? styles.rodaVisible : ""}`} data-reveal-id="card1">
             <div className={styles.rodaCardNum}>01</div>
             <div className={styles.rodaIcon}>?</div>
-            <h3>Aquisicao</h3>
-            <p>Sua operacao passa a ser encontrada, citada e recomendada pelos algoritmos e pelas IAs antes da concorrencia em toda a malha industrial de Itajai.</p>
+            <h3>Aquisição</h3>
+            <p>Sua operação passa a ser encontrada, citada e recomendada pelos algoritmos e pelas IAs antes da concorrência em toda a malha industrial de Itajaí.</p>
             <div className={styles.rodaBadges}><span>[SEO LOCAL]</span><span>[AIO]</span></div>
           </article>
 
           <article className={`${styles.rodaCard} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.card2 ? styles.rodaVisible : ""}`} data-reveal-id="card2">
             <div className={styles.rodaCardNum}>02</div>
             <div className={styles.rodaIcon}>?</div>
-            <h3>Frequencia</h3>
-            <p>Estruturamos ciclos de recontratacao com industrias que ja conhecem seu nivel operacional, convertendo servicos pontuais em recorrencia de alto valor.</p>
+            <h3>Frequência</h3>
+            <p>Estruturamos ciclos de recontratação com indústrias que já conhecem seu nível operacional, convertendo serviços pontuais em recorrência de alto valor.</p>
           </article>
 
           <article className={`${styles.rodaCard} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.card3 ? styles.rodaVisible : ""}`} data-reveal-id="card3">
             <div className={styles.rodaCardNum}>03</div>
             <div className={styles.rodaIcon}>?</div>
-            <h3>Ticket Medio</h3>
-            <p>Substituimos o modelo de hora/maquina por pacotes de solucao logistica, ancorados na resolucao do risco operacional.</p>
+            <h3>Ticket Médio</h3>
+            <p>Substituímos o modelo de hora/máquina por pacotes de solução logística, ancorados na resolução do risco operacional.</p>
           </article>
         </div>
 
         <div className={`${styles.rodaCounterWrap} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.counter ? styles.rodaVisible : ""}`} data-reveal-id="counter">
           <div className={styles.rodaCounter}>{counter.toFixed(1).replace(".", ",")}%</div>
-          <div className={styles.rodaCounterSub}>de expansao de receita projetada</div>
+          <div className={styles.rodaCounterSub}>de expansão de receita projetada</div>
           <div className={styles.rodaFormula}>1,2 x 1,2 x 1,2 = 1,728</div>
         </div>
 
         <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.metodo_final ? styles.rodaVisible : ""}`} data-reveal-id="metodo_final">
-          Sem ampliar a frota. Sem depender de indicacao. Apenas interceptando a demanda que ja existe na sua regiao.
+          Sem ampliar a frota. Sem depender de indicação. Apenas interceptando a demanda que já existe na sua região.
         </p>
       </section>
 
       <section id="dobra-roadmap" className={`${styles.rodaSection} ${styles.rodaRoadmapBg}`}>
         <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.road_h2 ? styles.rodaVisible : ""}`} data-reveal-id="road_h2">
-          Implementacao em fases. <strong>Zero improviso.</strong>
+          Implementação em fases. <strong>Zero improviso.</strong>
         </h2>
         <p className={`${styles.rodaSubtitle} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.road_sub ? styles.rodaVisible : ""}`} data-reveal-id="road_sub">
-          Cada etapa tem escopo definido, entregaveis auditaveis e responsabilidades documentadas.
+          Cada etapa tem escopo definido, entregáveis auditáveis e responsabilidades documentadas.
         </p>
 
         <div className={styles.rodaTimeline}>
@@ -378,24 +378,24 @@ export function ProposalSections() {
 
           <article className={`${styles.rodaTimelineCard} ${styles.rodaReveal} ${visibleIds.road_1 ? styles.rodaVisible : ""}`} data-reveal-id="road_1">
             <span className={styles.rodaPhase}>FASE 1</span>
-            <h3>Dominio Organico B2B</h3>
+            <h3>Domínio Orgânico B2B</h3>
             <h4>SEO Local + AIO</h4>
-            <p>Reconstrucao tecnica do Google Business Profile e estruturacao semantica dos dados para que mapas locais e IAs reconhecam a SD como autoridade em icamento critico na regiao.</p>
+            <p>Reconstrução técnica do Google Business Profile e estruturação semântica dos dados para que mapas locais e IAs reconheçam a SD como autoridade em içamento crítico na região.</p>
           </article>
 
           <article className={`${styles.rodaTimelineCard} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.road_2 ? styles.rodaVisible : ""}`} data-reveal-id="road_2">
             <span className={styles.rodaPhase}>FASE 2</span>
-            <h3>Infraestrutura de Conversao</h3>
+            <h3>Infraestrutura de Conversão</h3>
             <h4>Landing Pages + Telemetria</h4>
-            <p>Construcao de ambientes de proposta rastreaveis por tipo de servico. Voce sabera quando um gerente de compras abrir sua proposta e em qual bloco tomara a decisao.</p>
-            <small>* Exatamente como o comportamento de leitura desta pagina e registrado agora.</small>
+            <p>Construção de ambientes de proposta rastreáveis por tipo de serviço. Você saberá quando um gerente de compras abrir sua proposta e em qual bloco tomará a decisão.</p>
+            <small>* Exatamente como o comportamento de leitura desta página é registrado agora.</small>
           </article>
 
           <article className={`${styles.rodaTimelineCard} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.road_3 ? styles.rodaVisible : ""}`} data-reveal-id="road_3">
             <span className={styles.rodaPhase}>FASE 3</span>
-            <h3>Qualificacao de Pipeline</h3>
+            <h3>Qualificação de Pipeline</h3>
             <h4>Filtros MEDDIC</h4>
-            <p>Implementacao de filtros para garantir que o tempo operacional da SD seja mobilizado apenas para industrias com orcamento real, decisor mapeado e processo ativo.</p>
+            <p>Implementação de filtros para garantir que o tempo operacional da SD seja mobilizado apenas para indústrias com orçamento real, decisor mapeado e processo ativo.</p>
           </article>
         </div>
       </section>
@@ -403,16 +403,16 @@ export function ProposalSections() {
       <section id="dobra-cta" className={`${styles.rodaSection} ${styles.rodaCtaBg}`}>
         <div className={styles.rodaCtaInner}>
           <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.cta_h2 ? styles.rodaVisible : ""}`} data-reveal-id="cta_h2">
-            A cada busca industrial em Itajai sem a SD Guindastes no topo, <strong>um contrato de alto ticket parte para outro patio.</strong>
+            A cada busca industrial em Itajaí sem a SD Guindastes no topo, <strong>um contrato de alto ticket parte para outro pátio.</strong>
           </h2>
           <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.cta_p1 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p1">
-            O Metodo R.O.D.A. nao e uma aposta. E uma implementacao tecnica de posicionamento de dados com escopo fechado e resultado auditavel.
+            O Método R.O.D.A. não é uma aposta. É uma implementação técnica de posicionamento de dados com escopo fechado e resultado auditável.
           </p>
           <p className={`${styles.rodaText} ${styles.rodaPrimaryStrong} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.cta_p2 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p2">
-            O diagnostico da Fase 1 ja foi realizado com base nos dados publicos da sua operacao e do mercado regional de Itajai.
+            O diagnóstico da Fase 1 já foi realizado com base nos dados públicos da sua operação e do mercado regional de Itajaí.
           </p>
           <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.cta_p3 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p3">
-            A execucao comeca quando voce confirmar abaixo.
+            A execução começa quando você confirmar abaixo.
           </p>
 
           <a
@@ -424,7 +424,7 @@ export function ProposalSections() {
           >
             QUERO IMPLEMENTAR
           </a>
-          <p className={styles.rodaCtaHint}>Voce sera direcionado para o WhatsApp. Sem formularios, sem intermediarios.</p>
+          <p className={styles.rodaCtaHint}>Você será direcionado para o WhatsApp. Sem formulários, sem intermediários.</p>
         </div>
       </section>
     </main>
