@@ -1,11 +1,12 @@
 "use client";
 
-import { type MouseEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./ProposalSections.module.css";
 
 const SEARCH_QUERY = "aluguel de munck Itajaí";
 const SESSION_KEY = "roda_session";
-const CTA_BASE = "https://wa.me/5532998494311";
+const CTA_LINK =
+  "https://wa.me/5532998494311?text=Ol%C3%A1%2C%20quero%20implementar%20o%20ecossistema%20R.O.D.A.%20na%20SD%20Guindastes.%20Entendi%20o%20escopo%20e%20o%20investimento%20de%20R%24%202.300%2Fm%C3%AAs.";
 
 type TelemetryEvent = Record<string, string | number>;
 
@@ -181,19 +182,10 @@ export function ProposalSections() {
     };
   }, []);
 
-  const onCtaClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
+  const onCtaClick = () => {
     const events = safeReadEvents();
     events.push({ evento: "cta_clique", timestamp: nowIso() });
-
-    const sessionSeconds = Math.max(1, Math.round((Date.now() - sessionStartRef.current) / 1000));
     safeWriteEvents(events);
-
-    const payload = JSON.stringify({ sessao_segundos: sessionSeconds, eventos: events });
-    const text = `Olá, quero implementar o Método R.O.D.A. na SD Guindastes. Sessão: ${sessionSeconds}s. Telemetria: ${payload}`;
-    const targetUrl = `${CTA_BASE}?text=${encodeURIComponent(text)}`;
-
-    window.open(targetUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -472,31 +464,83 @@ export function ProposalSections() {
         </div>
       </section>
 
-      <section id="dobra-cta" className={`${styles.rodaSection} ${styles.rodaCtaBg}`}>
-        <div className={styles.rodaCtaInner}>
-          <h2 className={`${styles.rodaTitle} ${styles.rodaReveal} ${visibleIds.cta_h2 ? styles.rodaVisible : ""}`} data-reveal-id="cta_h2">
-            A cada busca industrial em Itajaí sem a SD Guindastes no topo, <strong>um contrato de alto ticket parte para outro pátio.</strong>
+      <section id="dobra-investimento" className={`${styles.rodaSection} ${styles.rodaInvestBg}`}>
+        <div className={`${styles.rodaInvestAnchor} ${styles.rodaReveal} ${visibleIds.inv_h2 ? styles.rodaVisible : ""}`} data-reveal-id="inv_h2">
+          <h2 className={styles.rodaTitle}>
+            Você não está economizando R$ 2.300 por mês. <strong>Você está perdendo o faturamento de um cesto aéreo parado.</strong>
           </h2>
-          <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.cta_p1 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p1">
-            O Método R.O.D.A. não é uma aposta. É uma implementação técnica de posicionamento de dados com escopo fechado e resultado auditável.
+          <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.inv_p1 ? styles.rodaVisible : ""}`} data-reveal-id="inv_p1">
+            Vamos fazer uma conta de engenharia fria. O mercado de Itajaí não para. Se a SD Guindastes perder apenas um contrato de montagem de galpão, um
+            içamento de câmara fria ou uma única diária de locação de munck para a concorrência porque não apareceu na Inteligência Artificial ou no Mapa do
+            Google... qual foi o custo real dessa perda?
           </p>
-          <p className={`${styles.rodaText} ${styles.rodaPrimaryStrong} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.cta_p2 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p2">
-            O diagnóstico da Fase 1 já foi realizado com base nos dados públicos da sua operação e do mercado regional de Itajaí.
+          <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.inv_p2 ? styles.rodaVisible : ""}`} data-reveal-id="inv_p2">
+            O valor que você deixa na mesa por não interceptar a demanda da região de Balneário e Navegantes paga o ecossistema R.O.D.A. para o ano inteiro em
+            poucos dias de operação.
           </p>
-          <p className={`${styles.rodaText} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.cta_p3 ? styles.rodaVisible : ""}`} data-reveal-id="cta_p3">
-            A execução começa quando você confirmar abaixo.
-          </p>
+        </div>
 
-          <a
-            href={CTA_BASE}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.rodaCtaButton}
-            onClick={onCtaClick}
-          >
-            QUERO IMPLEMENTAR
+        <div className={styles.rodaInvestGrid}>
+          <article className={`${styles.rodaInvestLoss} ${styles.rodaReveal} ${styles.rodaDelay1} ${visibleIds.inv_left ? styles.rodaVisible : ""}`} data-reveal-id="inv_left">
+            <p className={styles.rodaInvestKickerLoss}>O CENÁRIO ATUAL (CUSTO INVISÍVEL)</p>
+            <ul className={styles.rodaInvestListLoss}>
+              <li>
+                <span>Custo de um cesto aéreo ou munck pesado parado no pátio por invisibilidade digital:</span>
+                <strong>Incalculável.</strong>
+              </li>
+              <li>
+                <span>Energia gasta respondendo orçamentos não-qualificados que não fecham:</span>
+                <strong>Alto atrito.</strong>
+              </li>
+              <li>
+                <span>Ver grandes construtoras do Porto contratando empresas de fora por não encontrarem a SD:</span>
+                <strong>Perda de capital estrutural.</strong>
+              </li>
+              <li>
+                <span>Ter apenas o Instagram como vitrine enquanto o decisor compra no Google:</span>
+                <strong>Modelo amador.</strong>
+              </li>
+            </ul>
+            <p className={styles.rodaInvestLossFooter}>Sua estrutura é de engenharia. Seu modelo de captação atual é de esperança.</p>
+          </article>
+
+          <article className={`${styles.rodaInvestScope} ${styles.rodaReveal} ${styles.rodaDelay2} ${visibleIds.inv_right ? styles.rodaVisible : ""}`} data-reveal-id="inv_right">
+            <p className={styles.rodaInvestKickerScope}>IMPLEMENTAÇÃO DO ECOSSISTEMA</p>
+            <p className={styles.rodaInvestScopeText}>
+              Nós não vamos vender &quot;postagens&quot; isoladas. Nós vamos assumir o comando de toda a engenharia de atração e blindagem comercial da sua frota:
+            </p>
+            <ul className={styles.rodaInvestScopeList}>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Reconstrução e blindagem em SEO Local (Google Maps e Buscas);</li>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Estruturação de dados para IA (AIO);</li>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Construção de Landing Pages nativas com telemetria;</li>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Gestão de Tráfego Pago focado em indústrias e construtoras;</li>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Automação de WhatsApp e Instagram para resposta imediata B2B;</li>
+              <li><i className={styles.rodaInvestCheck} aria-hidden="true" />Criação de artigos e posts ancorando a autoridade de içamento.</li>
+            </ul>
+            <p className={styles.rodaInvestPriceLabel}>Taxa de Manutenção da Infraestrutura</p>
+            <p className={styles.rodaInvestPrice}>
+              R$ 2.300{" "}
+              <span>
+                /mês
+              </span>
+            </p>
+            <p className={styles.rodaInvestPill}>Sem fidelidade contratual forçada. Você fica pelo resultado, não por multa.</p>
+          </article>
+        </div>
+
+        <div className={`${styles.rodaInvestRisk} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.inv_risk ? styles.rodaVisible : ""}`} data-reveal-id="inv_risk">
+          <h3>A simetria de risco é nossa.</h3>
+          <p>
+            O nosso trabalho é transformar R$ 2.300 mensais em uma fração insignificante do ticket de um único contrato industrial fechado no mês. O escopo é
+            pesado, o foco é em dados e o trabalho começa na Fase 1 imediatamente após o alinhamento.
+          </p>
+        </div>
+
+        <div className={`${styles.rodaCtaInner} ${styles.rodaReveal} ${styles.rodaDelay3} ${visibleIds.inv_cta ? styles.rodaVisible : ""}`} data-reveal-id="inv_cta">
+          <a href={CTA_LINK} target="_blank" rel="noopener noreferrer" className={styles.rodaCtaButton} onClick={onCtaClick}>
+            QUERO INICIAR A IMPLEMENTAÇÃO AGORA
           </a>
-          <p className={styles.rodaCtaHint}>Você será direcionado para o WhatsApp. Sem formulários, sem intermediários.</p>
+          <p className={styles.rodaCtaHint}>Toque para falar diretamente comigo no WhatsApp. O modelo já está auditado para a SD Guindastes.</p>
         </div>
       </section>
     </main>
