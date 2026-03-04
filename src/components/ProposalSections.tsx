@@ -251,13 +251,13 @@ export function ProposalSections() {
           {mapVisible && (
             <>
               <div className={`${styles.rodaPoint} ${styles.rodaCompetitor}`} style={{ left: "17%", top: "30%" }}>
-                <span>Concorrente</span>
+                <span>ALC Guindastes e Transportes</span>
               </div>
               <div className={`${styles.rodaPoint} ${styles.rodaCompetitor}`} style={{ left: "66%", top: "24%" }}>
-                <span>Concorrente</span>
+                <span>Cilesio</span>
               </div>
               <div className={`${styles.rodaPoint} ${styles.rodaCompetitor}`} style={{ left: "74%", top: "69%" }}>
-                <span>Concorrente</span>
+                <span>munck em itajai (Lima Munck)</span>
               </div>
             </>
           )}
