@@ -1,0 +1,224 @@
+.proposalRoot {
+  --primary-gold: #d4af37;
+  --primary-dark: #1a1a1a;
+  --secondary-gray: #333333;
+  --accent-red: #c8102e;
+  --bg-light: #f8f8f8;
+  --white: #ffffff;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.section {
+  min-height: 100vh;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  color: var(--primary-dark);
+}
+
+.section2 {
+  background: var(--bg-light);
+}
+
+.section3 {
+  background: var(--white);
+}
+
+.rodaContainer {
+  background: var(--primary-dark);
+  color: var(--white);
+}
+
+.heroEnd {
+  background: linear-gradient(135deg, var(--accent-red) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+}
+
+.title {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+.ctaButton {
+  background: var(--accent-red);
+  color: var(--white);
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+  text-decoration: none;
+  display: inline-block;
+  min-width: 280px;
+}
+
+.ctaButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(200, 16, 46, 0.4);
+}
+
+.goldCta {
+  background: var(--primary-gold);
+  color: var(--primary-dark);
+}
+
+.googleTestCard {
+  max-width: 500px;
+  margin: 2rem auto;
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.rankLabel {
+  font-size: 1.8rem;
+  color: var(--primary-gold);
+  margin-bottom: 1rem;
+}
+
+.rankBox {
+  background: #e8f4f8;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+.comparisonItem {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.comparisonItem h3 {
+  color: var(--primary-gold);
+  margin-bottom: 1rem;
+}
+
+.comparisonList {
+  list-style: none;
+  padding: 0;
+}
+
+.comparisonList li {
+  margin-bottom: 0.5rem;
+}
+
+.dimmed {
+  opacity: 0.75;
+}
+
+.rodaWrap {
+  max-width: 860px;
+  margin: 3rem auto;
+}
+
+.rodaStep {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+  margin-bottom: 4rem;
+}
+
+.rodaStepActive {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rodaStep h3 {
+  font-size: 2rem;
+  color: var(--primary-gold);
+  margin-bottom: 1rem;
+}
+
+.rodaStep p {
+  font-size: 1.25rem;
+}
+
+.rodaStep ul {
+  text-align: left;
+  max-width: 520px;
+  margin: 1rem auto;
+  font-size: 1.05rem;
+}
+
+.scopeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 920px;
+  margin: 3rem auto;
+}
+
+.scopeCard {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.scopeIcon {
+  font-size: 1.5rem;
+  color: var(--primary-gold);
+  margin-bottom: 1rem;
+}
+
+.offerBox {
+  background: var(--primary-dark);
+  color: var(--white);
+  padding: 3rem;
+  border-radius: 12px;
+  max-width: 640px;
+  margin: 3rem auto 0;
+}
+
+.offerBox h3 {
+  color: var(--primary-gold);
+}
+
+.offerBox p {
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+.footerNote {
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 60px 15px;
+  }
+
+  .ctaButton {
+    min-width: 240px;
+  }
+}
